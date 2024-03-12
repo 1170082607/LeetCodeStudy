@@ -27,6 +27,20 @@ n == citations.length
 */
 // 274. H 指数
 func hIndex(citations []int) int {
-	//TODO 274. H 指数
+	hNums := make([]int, len(citations))
+	for _, value := range citations {
+		num := value
+		if num >= len(hNums) {
+			num = len(hNums) - 1
+		}
+		for ; num > 0; num-- {
+			hNums[num] += 1
+		}
+	}
+	for i := len(hNums) - 1; i >= 0; i-- {
+		if i+1 <= hNums[i] {
+			return i + 1
+		}
+	}
 	return 0
 }
