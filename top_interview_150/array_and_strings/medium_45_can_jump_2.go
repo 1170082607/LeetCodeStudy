@@ -30,7 +30,49 @@ i + j < n
 题目保证可以到达 nums[n-1]
 */
 // 45. 跳跃游戏 II
-func jump(nums []int) bool {
-	//TODO 45. 跳跃游戏 II
-	return false
+func jump(nums []int) int {
+	if len(nums) == 1 {
+		return 0
+	}
+	num := 0
+	for i := 0; i < len(nums); {
+		if i+nums[i] >= len(nums)-1 {
+			return num + 1
+		}
+		tempMax, nextILength := 0, 0
+		for j := 1; j <= nums[i]; j++ {
+			if nums[i+j]+j+1 > tempMax {
+				tempMax = nums[i+j] + j + 1
+				nextILength = j
+			}
+		}
+		i += nextILength
+		num++
+	}
+	return num
 }
+
+/*
+func jump(nums []int) int {
+    length := len(nums)
+    end := 0
+    maxPosition := 0
+    steps := 0
+    for i := 0; i < length - 1; i++ {
+        maxPosition = max(maxPosition, i + nums[i])
+        if i == end {
+            end = maxPosition
+            steps++
+        }
+    }
+    return steps
+}
+
+func max(x, y int) int {
+    if x > y {
+        return x
+    }
+    return y
+}
+
+*/

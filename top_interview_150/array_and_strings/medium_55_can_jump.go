@@ -26,6 +26,20 @@ package array_and_strings
 */
 // 55. 跳跃游戏
 func canJump(nums []int) bool {
-	//TODO 55. 跳跃游戏
-	return false
+	if len(nums) == 1 {
+		return true
+	}
+	max := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i]+i+1 > max {
+			max = nums[i] + i + 1
+			if max >= len(nums) {
+				return true
+			}
+		}
+		if nums[i] == 0 && max <= i+1 {
+			return false
+		}
+	}
+	return true
 }
