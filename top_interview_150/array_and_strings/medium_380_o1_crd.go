@@ -1,5 +1,7 @@
 package array_and_strings
 
+import "math/rand"
+
 // RandomizedSet
 /*
 实现RandomizedSet 类：
@@ -39,23 +41,38 @@ randomizedSet.getRandom(); // 由于 2 是集合中唯一的数字，getRandom �
 */
 // 380. O(1) 时间插入、删除和获取随机元素
 type RandomizedSet struct {
+	nums    []int
+	indices map[int]int
 }
 
 func Constructor() RandomizedSet {
-	//TODO 380. O(1) 时间插入、删除和获取随机元素
-	return RandomizedSet{}
+	return RandomizedSet{[]int{}, map[int]int{}}
 }
 
 func (rs *RandomizedSet) Insert(val int) bool {
-	return false
+	if _, ok := rs.indices[val]; ok {
+		return false
+	}
+	rs.indices[val] = len(rs.nums)
+	rs.nums = append(rs.nums, val)
+	return true
 }
 
 func (rs *RandomizedSet) Remove(val int) bool {
-	return false
+	id, ok := rs.indices[val]
+	if !ok {
+		return false
+	}
+	last := len(rs.nums) - 1
+	rs.nums[id] = rs.nums[last]
+	rs.indices[rs.nums[id]] = id
+	rs.nums = rs.nums[:last]
+	delete(rs.indices, val)
+	return true
 }
 
 func (rs *RandomizedSet) GetRandom() int {
-	return 0
+	return rs.nums[rand.Intn(len(rs.nums))]
 }
 
 /**
