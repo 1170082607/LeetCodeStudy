@@ -43,6 +43,22 @@ cost.length == n
 */
 // 134. canCompleteCircuit
 func canCompleteCircuit(gas []int, cost []int) int {
-	//todo new
-	return 0
+	for i, n := 0, len(gas); i < n; {
+		sumOfGas, sumOfCost, cnt := 0, 0, 0
+		for cnt < n {
+			j := (i + cnt) % n
+			sumOfGas += gas[j]
+			sumOfCost += cost[j]
+			if sumOfCost > sumOfGas {
+				break
+			}
+			cnt++
+		}
+		if cnt == n {
+			return i
+		} else {
+			i += cnt + 1
+		}
+	}
+	return -1
 }
