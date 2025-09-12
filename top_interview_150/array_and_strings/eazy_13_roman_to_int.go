@@ -58,7 +58,7 @@ IL 和 IM 这样的例子并不符合题目要求，49 应该写作 XLIX，999 �
 // 13. romanToInt
 
 func romanToInt(s string) int {
-	var trans = map[string]int{
+	trans := map[string]int{
 		"I":  1,
 		"V":  5,
 		"X":  10,
